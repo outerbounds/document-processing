@@ -7,9 +7,9 @@
 	<div class='message'>
 		<h2>Chat with documents</h2>
 		<p>
-		The app is based on <a href="https://github.com/outerbounds/document-processing/pdf-app">this code</a>.
+		The app is based on <a href="https://github.com/outerbounds/document-processing/tree/main/pdf-app">this code</a>.
 		Upload one or more PDF files and use LMs to understand and chat with it. 
-		<a href="https://github.com/outerbounds/document-processing/snowflake-marketplace">This code</a> uses LMs to summarize HTML files while showing how to use Snowflake with Outerbounds. 
+		For more examples, see<a href="https://github.com/outerbounds/document-processing/tree/main/01-snowflake">this project</a> which uses LMs to summarize HTML files while showing how to use Snowflake with Outerbounds. 
 		</p>
 	</div>
 </div>

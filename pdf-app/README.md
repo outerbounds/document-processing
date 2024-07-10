@@ -20,9 +20,13 @@ Create a file call `.env` in the root directory and put only your OpenAI key in 
 ## Run manually
 
 ### Option 1: Start backend
+
+Note: find your configure token in the Outerbounds UI
+
 ```
 cd pdf-app/backend
 pip install -r requirements.txt
+outerbounds configure <>
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
