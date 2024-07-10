@@ -1,0 +1,22 @@
+name: 'company_analytics'
+version: '1.0.0'
+profile: 'company_analytics'
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  company_analytics:
+    staging:
+      +materialized: view
+      snowflake_warehouse: COMPUTE_WH
+    marts:
+      +materialized: table
+      snowflake_warehouse: COMPUTE_WH

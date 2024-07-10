@@ -1,0 +1,442 @@
+@font-face {
+	font-family: 'Stanley';
+	src: url('/fonts/Stanley-Regular.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/Stanley-Regular.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/Stanley-Regular.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/Stanley-Regular.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roobert';
+	src: url('/fonts/RoobertPRO-Medium.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/RoobertPRO-Medium.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/RoobertPRO-Medium.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/RoobertPRO-Medium.woff') format('woff');
+	font-display: swap;
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Roobert';
+	src: url('/fonts/RoobertPRO-Medium.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/RoobertPRO-Medium.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/RoobertPRO-Medium.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/RoobertPRO-Medium.woff') format('woff');
+	font-display: swap;
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'GT America';
+	src: url('/fonts/GT-America-Standard-Regular.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/GT-America-Standard-Regular.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/GT-America-Standard-Regular.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/GT-America-Standard-Regular.woff')
+			format('woff');
+	font-display: swap;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'GT America';
+	src: url('/fonts/GT-America-Standard-Medium.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/GT-America-Standard-Medium.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/GT-America-Standard-Medium.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/GT-America-Standard-Medium.woff')
+			format('woff');
+	font-display: swap;
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'GT America';
+	src: url('/fonts/GT-America-Standard-Medium.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/GT-America-Standard-Medium.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/GT-America-Standard-Medium.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/GT-America-Standard-Medium.woff')
+			format('woff');
+	font-display: swap;
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'GT America Mono';
+	src: url('/fonts/GT-America-Mono-Regular.eot'); /* IE9 Compat Modes */
+	src:
+		local(''),
+		url('/fonts/GT-America-Mono-Regular.eot?#iefix') format('embedded-opentype'),
+		/* IE6-IE8 */ url('/fonts/GT-America-Mono-Regular.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('/fonts/GT-America-Mono-Regular.woff') format('woff');
+	font-display: swap;
+}
+
+:root {
+	/* Fonts */
+	--font-heading: 'Roobert', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+	--font-body: 'GT America', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	/* Color styles */
+
+	/* --global-footer-height: 2rem; */
+
+	--green-100: #dae8e2;
+	--green-100-50: #dae8e280;
+	--green-200: #3e8265;
+	--green-300: #4c9878;
+	--green-300-5: #4c98780d;
+	--green-300-10: #4c98781a;
+	--green-400: #428a6b;
+	--green-500: #37795d;
+	--yellow-100: #faf1db;
+	--yellow-200: #f7e2b1;
+	--yellow-300: #fbd784;
+	--yellow-400: #e4b957;
+	--yellow-500: #d7a530;
+	--yellow-900: #8e6a1a;
+	--purple-100: #f5eff9;
+	--purple-200: #e7d4f3;
+	--purple-300: #976bac;
+	--purple-400: #8e53a9;
+	--purple-500: #77458f;
+	--red-100: #fce5e2;
+	--red-100-70: #fce5e2b2;
+	--red-200: #f3b6af;
+	--red-300: #e6786c;
+	--red-400: #e35f50;
+	--red-500: #ce493a;
+	--blue-100: #dfe9f4;
+	--blue-200: #bdd8f2;
+	--blue-300: #88b7e3;
+	--blue-400: #6799c8;
+	--blue-500: #4e7ca7;
+	--grey-100: #ebe8e5;
+	--grey-200: #b2afac;
+	--grey-200-5: #b2afac0d;
+	--grey-300: #6a6867;
+	--grey-300-5: #6a68670d;
+	--grey-300-10: #6a68671a;
+	--grey-300-30: #6a68674d;
+	--grey-300-70: #6a6867b2;
+	--black: #31302f;
+	--black-90: #31302fe5;
+	--sand-100: #faf7f4;
+	--sand-200: #f2eeea;
+	--sand-200-70: #f2eeeab2;
+	--sand-300: #eee9e4;
+
+	--warning: var(--yellow-500);
+	--error: var(--red-500);
+	--success: var(--green-300);
+
+	--white: #ffffff;
+
+	--background-color: var(--sand-100);
+
+	/* Spacing */
+	--spacing-01: 0.25rem; /* 4px */
+	--spacing-02: 0.5rem; /* 8px */
+	--spacing-03: 0.75rem; /* 12px */
+	--spacing-04: 1rem; /* 16px */
+	--spacing-05: 1.25rem; /* 20px */
+	--spacing-06: 1.5rem; /* 24px */
+	--spacing-07: 2rem; /* 32px */
+	--spacing-08: 2.5rem; /* 40px */
+	--spacing-09: 3rem; /* 48px */
+	--spacing-10: 3.5rem; /* 56px */
+	--spacing-11: 4rem; /* 64px */
+	--spacing-12: 4.5rem; /* 72px */
+	--spacing-13: 5rem; /* 80px */
+	--spacing-14: 6rem; /* 96px */
+
+	/* Dimensions */
+	--first-col-width: 10.5rem;
+	--right-col-header-height: var(--spacing-09);
+	--top-bar-height: var(--spacing-13);
+	--interval-width: var(--spacing-01); /* synch with INTERVAL_WIDTH js variable */
+	--nav-bar-height: var(--spacing-09);
+	--tall-nav-bar-height: var(--spacing-12);
+	--layout-min-width: 76.375rem;
+	--layout-max-width: 75rem;
+
+	/* Inputs */
+	--input-height: var(--spacing-09);
+	--input-border-color: var(--grey-300-30);
+	--input-disabled-border-color: var(--grey-300-10);
+	--input-disabled-bg-color: var(--grey-200-5);
+	--input-disabled-color: var(--grey-300-70);
+
+	/* Shadows */
+	--shadow-base: 0 0.0625rem 0.125rem 0 var(--grey-300-5),
+		0 0.0625rem 0.1875rem 0 var(--grey-300-10);
+	--shadow-deep: 0 0.625rem var(--spacing-04) -0.1875rem rgba(0, 0, 0, 0.1),
+		0 var(--spacing-01) 0.375rem -0.125rem rgba(0, 0, 0, 0.05), 0 0 0 0.0625rem rgba(0, 0, 0, 0.05);
+	--shadow-accent-blue: 0 0 0 0.125rem var(--white), 0 0 0 var(--spacing-01) var(--blue-200);
+	--shadow-accent-green: 0 0 0 0.125rem var(--white), 0 0 0 var(--spacing-01) var(--green-300);
+	--shadow-soft: 0 0.0625rem 0.125rem var(--grey-300-5);
+	--shadow-contoured: 0.0625rem 0.125rem 0.375rem 0.0625rem rgba(51, 51, 51, 0.15);
+	--shadow-layered: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05),
+		0px 0px 0px 1px rgba(0, 0, 0, 0.05);
+	--shadow-intense: rgba(0, 0, 0, 0.2) 0 0.1875rem 0.3125rem -0.0625rem,
+		rgba(0, 0, 0, 0.14) 0 0.375rem 0.625rem 0, rgba(0, 0, 0, 0.12) 0 0.0625rem 1.125rem 0;
+	--shadow-side: -1.5rem 0 0 0 var(--grey-300-5), 1.5rem 0 0 0 var(--grey-300-5);
+	--shadow-table: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.1),
+		0px 0.0625rem 0.125rem 0px rgba(0, 0, 0, 0.06);
+
+	/* Outlines */
+	--outline-default: 0.125rem solid var(--green-300-10);
+	--outline-primary: 0.125rem solid var(--green-300);
+	--outline-error: 0.125rem solid var(--red-300);
+	--outline-blue: 0.125rem solid var(--mfgui-blue-100);
+
+	/* Borders */
+	--border-lighter: 0.03125rem solid var(--grey-300-10);
+	--border-light: 0.0625rem solid var(--grey-300-10);
+	--border-medium: 0.125rem solid var(--grey-300-10);
+	--border-thick: 0.25rem solid var(--grey-300-10);
+
+	/* Border Radius */
+	--radius-full: 100rem;
+	--radius-xs: 0.0625rem;
+	--radius-sm: 0.125rem;
+	--radius-s: 0.25rem;
+	--radius-md: 0.375rem;
+	--radius-ml: 0.5rem;
+	--radius-lg: 0.75rem;
+	--radius-xl: 1rem;
+	--radius-xxl: 2.125rem;
+
+	--modal-width: 38rem;
+
+	--toastBackground: #dae8e2;
+	--toastColor: #31302f;
+	--toastBarBackground: #dae8e2;
+
+	--headerHeight: 3rem;
+	
+
+}
+
+* {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	max-height: 100vh;
+	overflow-y: auto;
+	/* background-color: var(--green-100); */
+	margin: 0;
+	font-family: var(--font-body);
+	font-style: normal;
+	font-size: 0.9375rem;
+	font-weight: 400;
+	color: var(--grey-300);
+
+}
+
+*:focus {
+	outline: var(--outline-default);
+	outline-offset: 0.125rem;
+}
+
+*:active {
+	outline: none !important;
+}
+
+.container {
+	min-height: 100vh;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+a,
+a:hover {
+	text-decoration: none;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* TYPOGRAPHY */
+
+h1,
+h2,
+h3,
+h4,
+.heading-primary,
+.heading-secondary,
+.heading-tertiary,
+.heading-quaternary {
+	font-family: var(--font-heading);
+	font-style: normal;
+	color: var(--black);
+	margin: 0;
+	font-weight: 500;
+}
+
+.heading-primary,
+h1 {
+	font-size: 2.25rem;
+	line-height: 115%;
+}
+
+.heading-secondary,
+h2 {
+	font-size: 2rem;
+	line-height: 130%;
+}
+
+.heading-tertiary,
+h3 {
+	font-size: 1.375rem;
+	line-height: 130%;
+}
+
+.heading-quaternary,
+h4 {
+	font-size: 1.125rem;
+	line-height: 165%;
+}
+
+.subtitle-primary,
+.subtitle-secondary,
+.body-primary,
+.body-secondary,
+p {
+	line-height: 165%;
+	margin: 0;
+}
+
+.subtitle-primary {
+	font-size: 0.9375rem;
+	font-weight: 500;
+}
+
+.subtitle-secondary {
+	font-size: 0.875rem;
+	font-weight: 500;
+}
+
+p,
+.body-primary {
+	font-size: 0.9375rem;
+	font-weight: 400;
+}
+
+.body-secondary,
+.body-error {
+	font-size: 0.875rem;
+	font-weight: 400;
+}
+
+code,
+.mono {
+	font-family: 'GT America Mono', monospace;
+	font-size: 0.8125rem;
+	font-weight: 400;
+	line-height: 165%;
+	color: var(--black);
+}
+
+.caption {
+	font-size: 0.75rem;
+	font-weight: 400;
+	line-height: 165%;
+}
+
+.body-error {
+	color: var(--error);
+}
+
+button {
+	border: none;
+	background: none;
+	padding: 0;
+	color: inherit;
+	cursor: pointer;
+}
+
+ol {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: inherit;
+}
+
+pre {
+	margin: 0;
+}
+
+._toastContainer {
+	top: var(--toastContainerTop, 1.5rem);
+	right: var(--toastContainerRight, 2rem);
+	bottom: var(--toastContainerBottom, auto);
+	left: var(--toastContainerLeft, auto);
+	z-index: var(--toastContainerZIndex, 9999);
+}
+  
+._toastItem {
+	width: var(--toastWidth, 16rem);
+	height: var(--toastHeight, auto);
+	min-height: var(--toastMinHeight, 3.5rem);
+	margin: var(--toastMargin, 0 0 0.5rem 0);
+	padding: var(--toastPadding, 0);
+	background: var(--toastBackground, rgba(66, 66, 66, 0.9));
+	color: var(--toastColor, #fff);
+	box-shadow: var(
+	--toastBoxShadow,
+	0 4px 6px -1px rgba(0, 0, 0, 0.1),
+	0 2px 4px -1px rgba(0, 0, 0, 0.06)
+	);
+	border: var(--toastBorder, none);
+	border-radius: var(--toastBorderRadius, 0.125rem);
+}
+
+._toastMsg {
+	padding: var(--toastMsgPadding, 0.75rem 0.5rem);
+}
+
+._toastBtn {
+	width: var(--toastBtnWidth, 2rem);
+	height: var(--toastBtnHeight, 100%);
+	font: var(--toastBtnFont, 1rem sans-serif);
+}
+
+._toastBtn::after {
+	content: var(--toastBtnContent, '✕');
+}
+
+._toastBar {
+	background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
+	top: var(--toastBarTop, auto);
+	right: var(--toastBarRight, auto);
+	bottom: var(--toastBarBottom, 0);
+	left: var(--toastBarLeft, 0);
+	height: var(--toastBarHeight, 6px);
+	width: var(--toastBarWidth, 100%);
+}

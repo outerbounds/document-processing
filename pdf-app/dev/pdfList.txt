@@ -1,0 +1,7 @@
+faiss-paper: https://arxiv.org/pdf/2309.06180
+paged-attention-paper: https://arxiv.org/pdf/2309.06180
+flash-attention-paper: https://arxiv.org/pdf/2205.14135
+pytorch-paper: https://arxiv.org/pdf/1912.01703
+gpt3-paper: https://arxiv.org/pdf/2005.14165
+gpt4-tech-report: https://arxiv.org/pdf/2303.08774
+sparks-of-agi-paper: https://arxiv.org/pdf/2303.12712

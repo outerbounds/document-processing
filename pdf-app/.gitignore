@@ -1,0 +1,7 @@
+**/__pycache__
+**/.svelte-kit
+**/node_modules
+backend/data
+**/.env
+./openai_key.txt
+**/.DS_Store
