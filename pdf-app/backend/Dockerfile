@@ -9,6 +9,7 @@ RUN pip install \
     pymupdf==1.24.5 \ 
     scikit-learn==1.5.0 \
     openai==1.35.7 \
-    sentence-transformers==3.0.1
+    sentence-transformers==3.0.1 \ 
+    outerbounds
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

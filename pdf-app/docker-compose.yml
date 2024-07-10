@@ -6,6 +6,10 @@ services:
     container_name: backend
     build:
       context: ./backend
+    volumes:
+      - type: bind
+        source: $HOME/.metaflowconfig/config.json
+        target: $HOME/.metaflowconfig/config.json
     restart: always
     ports:
       - 8000:8000
