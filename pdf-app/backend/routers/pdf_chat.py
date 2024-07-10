@@ -206,16 +206,17 @@ async def upload_pdf_from_file(uf: UploadFile):
     """
 
     print("[INFO] Received: ", uf.filename)
-    # NOTE: dumb logging now. good time to tee stuff or use actual logger
     if uf.content_type != "application/pdf":
         return {"Error": "Only PDF files are allowed!"}
     pdf_file_path = f"data/{uf.filename}"
     if not os.path.exists("data"):
         os.makedirs("data")
+    pdf_bytes = uf.file.read()
+    
     with open(pdf_file_path, "wb") as f:
         f.write(pdf_bytes)
 
-    return pdf_to_rag(uf.file.read())
+    return pdf_to_rag(pdf_file_path)
 
 
 def pdf_to_rag(pdf_file_path):
