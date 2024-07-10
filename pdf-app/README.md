@@ -21,7 +21,7 @@ Create a file call `.env` in the root directory and put only your OpenAI key in 
 
 ### Option 1: Start backend
 
-Note: find your configure token in the Outerbounds UI
+Note: find your configure token in the Outerbounds UI.
 
 ```
 cd pdf-app/backend
