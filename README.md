@@ -1,4 +1,8 @@
-# Introduction
+## Building a production-grade document processing workflow with LLMs
+
+![](./tmls-doc.jpeg)
+
+## Introduction
 
 This repository shows document processing workflows on Outerbounds. 
 
