@@ -1,1 +1,1 @@
-torch: https://arxiv.org/pdf/1912.01703
+torch: https://arxiv.org/pdf/1912.01703\npagedAttn: https://arxiv.org/pdf/2309.06180

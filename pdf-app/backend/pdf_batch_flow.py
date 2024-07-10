@@ -9,23 +9,25 @@ from metaflow import (
     current,
     S3,
     environment,
+    retry,
 )
 from metaflow.cards import Table
 import os
+import json
 
 
 @pypi_base(python="3.12")
 class PDFRAGIndexing(FlowSpec):
 
     local_pdf_path = Parameter(
-        "local_pdf_path", 
+        "local_pdf_path",
         help="Local directory containing the PDF files.",
     )
     url_list = IncludeFile(
-        "url_list", 
+        "url_list",
         help="A file containing a mapping between PDF URLs and names.",
-        default='pdfList.txt',
-        is_text=True
+        default="pdfList.txt",
+        is_text=True,
     )
     tmp_dir = "/tmp/pdf"
 
@@ -69,6 +71,7 @@ class PDFRAGIndexing(FlowSpec):
 
         self.next(self.extract_text, foreach="s3_pdf_paths")
 
+    @retry
     @pypi(packages={"pymupdf": "1.24.6"})
     @step
     def extract_text(self):
@@ -85,13 +88,16 @@ class PDFRAGIndexing(FlowSpec):
         self.chunks = text_to_chunks(text_ls)
         self.next(self.join)
 
+    @retry
     @card
-    @pypi(packages={
-        "sentence-transformers": "3.0.1", 
-        "scikit-learn": "1.5.0", 
-        "altair": "5.3.0",
-        "pandas": "2.2.2"
-    })
+    @pypi(
+        packages={
+            "sentence-transformers": "3.0.1",
+            "scikit-learn": "1.5.0",
+            "altair": "5.3.0",
+            "pandas": "2.2.2",
+        }
+    )
     @environment(vars={"TOKENIZERS_PARALLELISM": "false"})
     @step
     def join(self, inputs):
@@ -104,7 +110,7 @@ class PDFRAGIndexing(FlowSpec):
         files = [c[2] for c in self.chunks]
         self.model = self._fit(chunks, files)
 
-        with open("fit_chart.json", 'r') as f:
+        with open("fit_chart.json", "r") as f:
             self.chart_json = json.loads(f.read())
         self.next(self.end)
 

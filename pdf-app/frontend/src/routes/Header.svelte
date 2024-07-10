@@ -26,7 +26,7 @@
 	</nav>
 
 	<div class="corner-right">
-		<a href="https://github.com/sveltejs/kit">
+		<a href="https://github.com/outerbounds/document-processing/tree/main/pdf-app">
 			<img src={github} alt="GitHub" />
 		</a>
 	</div>

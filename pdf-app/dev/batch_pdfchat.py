@@ -18,14 +18,14 @@ import os
 class PDFRAGIndexing(FlowSpec):
 
     local_pdf_path = Parameter(
-        "local_pdf_path", 
+        "local_pdf_path",
         help="Local directory containing the PDF files.",
     )
     url_list = IncludeFile(
-        "url_list", 
+        "url_list",
         help="A file containing a mapping between PDF URLs and names.",
-        default='pdfList.txt',
-        is_text=True
+        default="pdfList.txt",
+        is_text=True,
     )
     tmp_dir = "/tmp/pdf"
 
@@ -86,12 +86,14 @@ class PDFRAGIndexing(FlowSpec):
         self.next(self.join)
 
     @card
-    @pypi(packages={
-        "sentence-transformers": "3.0.1", 
-        "scikit-learn": "1.5.0", 
-        "altair": "5.3.0",
-        "pandas": "2.2.2"
-    })
+    @pypi(
+        packages={
+            "sentence-transformers": "3.0.1",
+            "scikit-learn": "1.5.0",
+            "altair": "5.3.0",
+            "pandas": "2.2.2",
+        }
+    )
     @environment(vars={"TOKENIZERS_PARALLELISM": "false"})
     @step
     def join(self, inputs):
@@ -108,7 +110,7 @@ class PDFRAGIndexing(FlowSpec):
 
         recommender = SemanticSearchModel()
         recommender.fit(chunks)
-        with open("fit_chart.html", 'r') as f:
+        with open("fit_chart.html", "r") as f:
             self.chart_html = f.read()
         return recommender
 

@@ -25,7 +25,7 @@ class MarketIntelIngestion(FlowSpec):
     n_chunks = Parameter("n_chunks", default=5)
     samples_per_chunk = Parameter("samples_per_chunk", default=5)
 
-    @secrets(sources=[...])  # TODO: Add secret for your Snowflake account
+    @secrets(sources=["snowflake-ob-content-universe"])
     @pypi(
         packages={
             "snowflake-connector-python": "3.10.0",
@@ -51,7 +51,7 @@ class MarketIntelIngestion(FlowSpec):
         self.next(self.process, foreach="chunks")
 
     @secrets(
-        sources=[..., ...]
+        sources=["snowflake-ob-content-universe", "openai_ob_content_universe"]
     )  # TODO: Add secret for your Snowflake account and OpenAI API key
     @pypi(
         packages={
@@ -80,7 +80,7 @@ class MarketIntelIngestion(FlowSpec):
         self.df = pd.DataFrame(_df_data)
         self.next(self.aggregate_dfs)
 
-    @secrets(sources=[...])  # TODO: Add secret for your Snowflake account
+    @secrets(sources=["snowflake-ob-content-universe"])
     @kubernetes
     @pypi(
         packages={

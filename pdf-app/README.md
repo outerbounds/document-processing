@@ -1,9 +1,8 @@
 ## Prerequisites
 
-### Option 1: [Install Docker](https://docs.docker.com/engine/install/)
+### Option 1: Install node and Python
 
-
-### Option 2: Install node and Python
+### Option 2: [Install Docker](https://docs.docker.com/engine/install/)
 
 ## Setup
 
@@ -18,28 +17,29 @@ Create a file call `.env` in the root directory and put only your OpenAI key in 
 
 ## Run manually
 
-### Start backend
+### Option 1: Start backend
 ```
 cd pdf-app/backend
+pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-### Run frontend
+### Option 1: Run frontend
 ```
 cd pdf-app/frontend
+npm i
 npm run dev
 ```
 
-## Dev
 
-### Pull pre-built containers
+### Option 2: Pull pre-built containers
 
 ```
 docker pull docker.io/eddieob/pdf-app-frontend:latest
 docker pull docker.io/eddieob/pdf-app-frontend:latest
 ```
 
-### Build with docker compose
+### Option 2: Build with docker compose
 
 With container built:
 ```

@@ -35,7 +35,7 @@ Place the secret name in the workflow code next to the `# TODO` comments.
 
 Install the following in the local environment where you will interactively run Metaflow flows from:
 ```bash
-pip install -r requirements.txt
+pip install metaflow-dbt
 ```
 
 ## Run the workflow

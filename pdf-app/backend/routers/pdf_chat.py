@@ -46,7 +46,7 @@ TEXT_EMBEDDING_MODEL_INFO = {
     "pretrained_model_provider": "Hugging Face",
     "use_case": "text-semantic-search",
 }
-LLM_MODEL_INFO = { 
+LLM_MODEL_INFO = {
     "remote_path": "openAI",
     "local_path": None,
     "model_name": "gpt-4o",
@@ -55,7 +55,8 @@ LLM_MODEL_INFO = {
     "pretrained_model_provider": "OpenAI",
     "use_case": "document-chat",
 }
-FLOW_NAME = 'PDFRAGIndexing'
+FLOW_NAME = "PDFRAGIndexing"
+
 
 # A model container M_search.
 # M_search affects what the user is shown
@@ -63,7 +64,7 @@ FLOW_NAME = 'PDFRAGIndexing'
 # M_search uses sklearn.neighbors.NearestNeighbors over sentence-transformers embeddings.
 class SemanticSearchModel:
     """
-    Manager for a semantic search model. 
+    Manager for a semantic search model.
     Use M_search = SemanticSearchModel() to create a new instance.
         M_search.fit(data) to fit the model when a PDF is uploaded.
         M_search(text) to get the nearest neighbors of a new text at inference time,
@@ -80,7 +81,9 @@ class SemanticSearchModel:
     """
 
     def __init__(self):
-        self.embedding_model = SentenceTransformer(TEXT_EMBEDDING_MODEL_INFO["model_name"])
+        self.embedding_model = SentenceTransformer(
+            TEXT_EMBEDDING_MODEL_INFO["model_name"]
+        )
         self.fitted = False
 
     def _get_text_embedding(self, texts, batch_size=DEFAULT_BATCH_SIZE):
@@ -143,8 +146,7 @@ M_search = SemanticSearchModel()
 #     return JSONResponse(content=json_content, status_code=200)
 
 
-
-@router.post('/upload-url-list-file')
+@router.post("/upload-url-list-file")
 async def upload_url_from_file_list(text_ls: str):
     """
     Run a Metaflow workflow to download PDFs from a list of URLs.
@@ -153,8 +155,11 @@ async def upload_url_from_file_list(text_ls: str):
     filename = "pdfList.txt"
     with open(filename, "w") as f:
         f.write(text_ls)
-    with Runner("pdf_batch_flow.py", environment='pypi').run(url_list=filename) as running:
+    with Runner("pdf_batch_flow.py", environment="pypi").run(
+        url_list=filename
+    ) as running:
         import time
+
         while running.status == "running":
             time.sleep(3)
         print(f"{running.run} finished")
@@ -165,20 +170,20 @@ async def upload_url_from_file_list(text_ls: str):
             flow = Flow(FLOW_NAME)
             run = flow.latest_successful_run
             M_search = run.data.model
-            html_content = run.data.chart_html 
-            return JSONResponse(content=html_content, status_code=200)
+            json_content = run.data.chart_json
+            return JSONResponse(content=json_content, status_code=200)
         else:
             return {"message": "ERROR. Metaflow workflow failed."}
 
 
 @router.post("/upload-pdf-url")
 async def upload_pdf_from_url(url: str, name: str):
-    
+
     def download_pdf(url, save_path):
         try:
             response = requests.get(url)
             response.raise_for_status()
-            with open(save_path, 'wb') as file:
+            with open(save_path, "wb") as file:
                 file.write(response.content)
             print(f"PDF downloaded successfully and saved to {save_path}")
         except requests.exceptions.RequestException as e:
@@ -202,14 +207,14 @@ async def upload_pdf_from_file(uf: UploadFile):
     # NOTE: dumb logging now. good time to tee stuff or use actual logger
     if uf.content_type != "application/pdf":
         return {"Error": "Only PDF files are allowed!"}
-    pdf_file_path = f"data/{uf.filename}" 
+    pdf_file_path = f"data/{uf.filename}"
     if not os.path.exists("data"):
         os.makedirs("data")
     with open(pdf_file_path, "wb") as f:
         f.write(pdf_bytes)
 
     return pdf_to_rag(uf.file.read())
-    
+
 
 def pdf_to_rag(pdf_file_path):
 

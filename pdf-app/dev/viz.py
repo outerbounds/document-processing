@@ -13,19 +13,17 @@ tsne = TSNE(n_components=2, random_state=42)
 embeddings_2d = tsne.fit_transform(embeddings)
 
 # Create a DataFrame for visualization
-df = pd.DataFrame(embeddings_2d, columns=['x', 'y'])
-df['document_id'] = document_ids
-df['chunk_id'] = range(num_chunks)
+df = pd.DataFrame(embeddings_2d, columns=["x", "y"])
+df["document_id"] = document_ids
+df["chunk_id"] = range(num_chunks)
 
 # Visualize using Altair
-chart = alt.Chart(df).mark_circle(size=60).encode(
-    x='x',
-    y='y',
-    color='document_id:N',
-    tooltip=['document_id', 'chunk_id']
-).properties(
-    title='Document Chunks Visualization'
+chart = (
+    alt.Chart(df)
+    .mark_circle(size=60)
+    .encode(x="x", y="y", color="document_id:N", tooltip=["document_id", "chunk_id"])
+    .properties(title="Document Chunks Visualization")
 )
 
 # Save the chart as an HTML file
-chart.save('chart.html')
+chart.save("chart.html")

@@ -61,7 +61,9 @@ class SemanticSearchModel:
         Fits the model with the data when a new PDF is uploaded.
         """
         self.chunks = chunks
-        self.embeddings, file_emb = self._get_text_embedding(self.chunks, files, batch_size=batch_size)
+        self.embeddings, file_emb = self._get_text_embedding(
+            self.chunks, files, batch_size=batch_size
+        )
         n_neighbors = min(n_neighbors, len(self.embeddings))
         print(
             "[DEBUG] Fitting Nearest Neighbors model with %s neighbors." % n_neighbors
@@ -74,22 +76,25 @@ class SemanticSearchModel:
         tsne = TSNE(n_components=2, random_state=77)
         embeddings_2d = tsne.fit_transform(self.embeddings)
 
-        df = pd.DataFrame(embeddings_2d, columns=['x', 'y'])
-        
-        # df['color'] = 'blue'
-        df['text'] = self.chunks
+        df = pd.DataFrame(embeddings_2d, columns=["x", "y"])
 
-        chart = alt.Chart(df).mark_circle(size=60).encode(
-            x='x',
-            y='y',
-            tooltip=['text'],
-            # color=alt.value('blue')
-        ).properties(
-            title='Text Embeddings Visualization'
+        # df['color'] = 'blue'
+        df["text"] = self.chunks
+
+        chart = (
+            alt.Chart(df)
+            .mark_circle(size=60)
+            .encode(
+                x="x",
+                y="y",
+                tooltip=["text"],
+                # color=alt.value('blue')
+            )
+            .properties(title="Text Embeddings Visualization")
         )
 
         vega_lite_spec = chart.to_dict()
-        with open('fit_chart.json', 'w') as f:
+        with open("fit_chart.json", "w") as f:
             f.write(json.dumps(vega_lite_spec))
 
         # chart.save('fit_chart.json')

@@ -57,7 +57,7 @@ def download_pdf(url, save_path):
     try:
         response = requests.get(url)
         response.raise_for_status()
-        with open(save_path, 'wb') as file:
+        with open(save_path, "wb") as file:
             file.write(response.content)
         print(f"PDF downloaded successfully and saved to {save_path}")
     except requests.exceptions.RequestException as e:

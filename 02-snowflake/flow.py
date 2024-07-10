@@ -7,6 +7,7 @@ from metaflow import (
     kubernetes,
     conda_base,
     conda,
+    retry,
     pypi,
     trigger_on_finish,
 )
@@ -17,21 +18,23 @@ from metaflow import (
 class MarketIntelTransformations(FlowSpec):
 
     @conda(packages={"dbt-snowflake": "1.8.1"})
-    @secrets(sources=[...])  # TODO: Add secret for your Snowflake account
+    @secrets(sources=["snowflake-ob-content-universe"])
     @dbt(project_dir="./company_analytics", generate_docs=True)
     @kubernetes
     @step
     def start(self):
         self.next(self.end)
 
+    @retry
     @conda(
         packages={
             "snowflake-connector-python": "3.10.0",
             "pandas": "2.2.2",
             "pyarrow": "16.0.0",
+            "pyyaml": "6.0.1",
         }
     )
-    @secrets(sources=[...])  # TODO: Add secret for your Snowflake account
+    @secrets(sources=["snowflake-ob-content-universe"])
     @kubernetes
     @step
     def end(self):

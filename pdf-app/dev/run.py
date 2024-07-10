@@ -3,7 +3,9 @@ from metaflow import Runner
 
 
 async def main():
-    with await Runner("batch_pdfchat.py", environment='pypi').async_run(local_pdf_path='pdfs') as running:
+    with await Runner("batch_pdfchat.py", environment="pypi").async_run(
+        local_pdf_path="pdfs"
+    ) as running:
         while running.status == "running":
             async for _, line in running.stream_log("stdout"):
                 print(line)
