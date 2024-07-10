@@ -191,6 +191,8 @@ async def upload_pdf_from_url(url: str, name: str):
 
     # Download the PDF file.
     pdf_file_path = f"data/{name.strip().replace(" ", "_")}.pdf"
+    if not os.path.exists("data"):
+        os.makedirs("data")
     download_pdf(url, pdf_file_path)
     return pdf_to_rag(pdf_file_path)
 
