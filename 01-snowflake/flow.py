@@ -52,7 +52,7 @@ class MarketIntelIngestion(FlowSpec):
 
     @secrets(
         sources=["snowflake-ob-content-universe", "openai_ob_content_universe"]
-    )  # TODO: Add secret for your Snowflake account and OpenAI API key
+    ) 
     @pypi(
         packages={
             "nltk": "3.8.1",
