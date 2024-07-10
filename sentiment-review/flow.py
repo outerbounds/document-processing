@@ -27,7 +27,7 @@ def make_batches(items, n):
 @nim(models=[MODEL])
 class ReviewSentimentFlow(FlowSpec):
 
-    num_parallel = Parameter("num_parallel", default=5)
+    num_parallel = Parameter("num_parallel", default=3)
     review_csv = IncludeFile("reviews", default="reviews.csv")
 
     @step
