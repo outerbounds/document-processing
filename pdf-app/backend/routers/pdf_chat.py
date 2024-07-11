@@ -190,7 +190,7 @@ async def upload_pdf_from_url(url: str, name: str):
             print(f"Failed to download PDF: {e}")
 
     # Download the PDF file.
-    pdf_file_path = f"data/{name.strip().replace(" ", "_")}.pdf"
+    pdf_file_path = f'data/{name.strip().replace(" ", "_")}.pdf'
     if not os.path.exists("data"):
         os.makedirs("data")
     download_pdf(url, pdf_file_path)
