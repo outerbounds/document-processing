@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: market_intel
-    database: FREE_COMPANY_DATASET_OUTPUTS
-    schema: PUBLIC
-    tables:
-      - name: MARKET_INTEL

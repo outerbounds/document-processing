@@ -1,4 +1,0 @@
-outerbounds
-metaflow-snowflake
-metaflow-dbt
-dbt-snowflake
