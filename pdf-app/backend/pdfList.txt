@@ -1,1 +1,0 @@
-faiss: https://arxiv.org/pdf/1702.08734

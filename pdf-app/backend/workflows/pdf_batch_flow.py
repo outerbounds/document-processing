@@ -45,7 +45,8 @@ class PDFRAGIndexing(FlowSpec):
 
         self.s3_pdf_paths = []
         if self.url_list is not None:
-            ls = self.url_list.split("\n")
+            print('DEBUG', self.url_list)
+            ls = self.url_list.strip().split("\n")
             for line in ls:
                 split = line.strip().split(": ")
                 name, url = split[0], split[1]

@@ -50,7 +50,7 @@
 		});
 		const pdfsStr = urlNamePairs.map(pair => {
 			return `${pair.name}: ${pair.url}`;
-		}).join(`\\n`);
+		}).join(`|||`);
 
 		console.log(pdfsStr);
 
@@ -80,9 +80,6 @@
 
 	{#if $workflowCompletedState}
 		<h2> {message} </h2>
-
-		<!-- <h2>   -->
-
 		<button class="buttons" on:click={() => workflowCompletedState.set(false)}>Reset</button>
 	{:else}
 		<div class='url-list' style="opacity: {$loading ? 0.1 : 1}">

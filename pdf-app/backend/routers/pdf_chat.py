@@ -154,7 +154,14 @@ async def upload_url_from_file_list(text_ls: str):
     print("[INFO] Received: ", text_ls)
     filename = "pdfList.txt"
     with open(filename, "w") as f:
-        f.write(text_ls)
+        print("[INFO] Writing to file." + text_ls)
+        test_ls = text_ls.split("|||")
+        for url in test_ls:
+            f.write(url + "\n")
+
+    with open(filename, "r") as f:
+        print("[INFO] Reading from file." + f.read())
+
     with Runner("workflows/pdf_batch_flow.py").run(
         url_list=filename
     ) as running:
