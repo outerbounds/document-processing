@@ -8,5 +8,5 @@ This repository shows document processing workflows on Outerbounds.
 
 ## Examples
 - [PDF app](pdf-app/README.md): Chat with a PDF, do batch workflows with PDFs, and more.
-- [Snowflake app part 1](01-snowflake/README.md): Pull a dataframe from a Snowflake database fetched in the Snowflake marketplace.
-- [Snowflake app part 2](02-snowflake/README.md): Run feature computation pipelines in parallel.
+- [Sentiment review](sentiment-review/README.md): Analyze sentiment of reviews using NVidia NIM.
+    - NOTE: to access the `@nim` decorator in the example, you'll need to be running Metaflow on Outerbounds. Alternatively, you can use the regular OpenAI API and remove the `@nim` references.

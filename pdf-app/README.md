@@ -15,7 +15,11 @@ The goal is to deploy 2 services: a backend service and a frontend service.
 If you are running the services manually, you will need to set your OpenAI key in the backend service environment.
 
 Create a file call `.env` in the root directory and put only your OpenAI key in it.
-`docker-compose.yml` will include this file's variables to the `backend` container environment.
+```
+OPENAI_API_KEY=...
+```
+
+> The `docker-compose.yml` will include this file's variables in the `backend` container environment.
 
 ## Run manually
 
@@ -42,7 +46,7 @@ npm run dev
 
 ```
 docker pull docker.io/eddieob/pdf-app-frontend:latest
-docker pull docker.io/eddieob/pdf-app-frontend:latest
+docker pull docker.io/eddieob/pdf-app-backend:latest
 ```
 
 ### Option 2: Build with docker compose
