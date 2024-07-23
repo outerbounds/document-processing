@@ -2,16 +2,13 @@
 	import { writable, get } from 'svelte/store';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { onMount } from "svelte";
-	import { loader } from '../loader';
-
-	import VegaChart from '../../lib/components/VegaChart.svelte';	
+	import { loader } from './loader';
 
 	// Store for managing the list of URLs
 	const urls = writable([]);
 	const names = writable([]);
 	const loading = writable(false);
-	const hasUploadedFile = writable(false);
-	const htmlContent = writable('');
+	const workflowCompletedState = writable(false);
 
 	// Server endpoint for uploading PDF files and fetching the chart
 	let endpoint: string = 'http://0.0.0.0:8000';
@@ -19,6 +16,7 @@
 
 	let newUrl = '';
 	let name = '';
+	let message = '';
 
 	function addUrl() {
 		if (newUrl.trim() !== '') {
@@ -39,27 +37,13 @@
 		}
 	}
 
-	async function findGraph() {
-		loading.set(true);
-		const res = await fetch(`${endpoint}/return-fit-chart`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		});
-		const data = await res.text();
-		htmlContent.set(data);
-		loading.set(false);
-		hasUploadedFile.set(true);
-	} 
-
 	async function fitSearchModel() {
 		if (get(urls).length === 0) {
 			toast.push('Please add at least one URL');
 			return;
 		}
 		loading.set(true);
-		hasUploadedFile.set(false);
+		workflowCompletedState.set(false);
 
 		const urlNamePairs = get(urls).map((url, index) => {
 			return { url, name: get(names)[index] };
@@ -77,11 +61,12 @@
 			}
 		});
 
-		const txt = await res.text();
-		htmlContent.set(txt);
-
+		message = await res.text();
+		
 		loading.set(false);
-		hasUploadedFile.set(true);
+		workflowCompletedState.set(true);
+		toast.push('Workflow completed');
+
 	}
 
 	onMount(() => {
@@ -92,39 +77,47 @@
 
 <div class="main">
 	<div class='loader-container'></div>
-	<div class='url-list' style="opacity: {$loading ? 0.1 : 1}">
-		<h2>Add URLs to PDF Documents</h2>
-		<div>
-			<input 
-				type="text" 
-				class="input-text"
-				bind:value={newUrl} 
-				on:keypress={e => e.key === 'Enter' && addUrl()}
-				placeholder="Enter pdf url (e.g., to arxiv paper)" 
-			/>
-			<div class="name-add-row">
+
+	{#if $workflowCompletedState}
+		<h2> {message} </h2>
+
+		<!-- <h2>   -->
+
+		<button class="buttons" on:click={() => workflowCompletedState.set(false)}>Reset</button>
+	{:else}
+		<div class='url-list' style="opacity: {$loading ? 0.1 : 1}">
+			<h2>Add URLs to PDF Documents</h2>
+			<div>
 				<input 
 					type="text" 
 					class="input-text"
-					bind:value={name} 
+					bind:value={newUrl} 
 					on:keypress={e => e.key === 'Enter' && addUrl()}
-					placeholder="Name" 
+					placeholder="Enter pdf url (e.g., to arxiv paper)" 
 				/>
-				<button class="button-row" on:click={addUrl}>
-					<span>Add URL</span>
-				</button>
-			</div>
-		</div>
-		<div class="url-items">
-			{#each $urls as url, index (url)}
-				<div class="url-item">
-					<a href={url} target="_blank">{`${url}: ${$names[index]}`}</a>
+				<div class="name-add-row">
+					<input 
+						type="text" 
+						class="input-text"
+						bind:value={name} 
+						on:keypress={e => e.key === 'Enter' && addUrl()}
+						placeholder="Name" 
+					/>
+					<button class="button-row" on:click={addUrl}>
+						<span>Add URL</span>
+					</button>
 				</div>
-			{/each}
-		</div>
-		<button class="buttons" on:click={fitSearchModel}>Fit search model</button>
-		<!-- <button class="buttons" on:click={findGraph}>Find Graph</button> -->
-	</div>	
+			</div>
+			<div class="url-items">
+				{#each $urls as url, index (url)}
+					<div class="url-item">
+						<a href={url} target="_blank">{`${url}: ${$names[index]}`}</a>
+					</div>
+				{/each}
+			</div>
+			<button class="buttons" on:click={fitSearchModel}>Fit search model</button>
+		</div>	
+	{/if}
 </div>
 
 <style>

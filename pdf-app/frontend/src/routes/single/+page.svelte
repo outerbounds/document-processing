@@ -1,7 +1,7 @@
 <script lang='ts'>
 
 	import { onMount } from "svelte";
-	import { loader } from '../loader';
+	import { loader } from './loader';
 	import { writable } from 'svelte/store';
 
 	import resetIcon from '$lib/images/reset.svg';

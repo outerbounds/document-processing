@@ -1,3 +1,1 @@
-torch: https://arxiv.org/pdf/1912.01703
-pagedAttn: https://arxiv.org/pdf/2309.06180
-timeSeries: https://arxiv.org/pdf/2401.03955
+faiss: https://arxiv.org/pdf/1702.08734

@@ -4,6 +4,8 @@ from sentence_transformers import SentenceTransformer
 import altair as alt
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import json
 
 
@@ -51,7 +53,7 @@ class SemanticSearchModel:
 
         print("[DEBUG] Embedding batches:", len(embeddings))
         embeddings = np.vstack(embeddings)
-        file_emb = np.vstack(file_emb)
+        file_emb = np.array(file_emb)
         print("[DEBUG] Embedding reshaped:", embeddings.shape, file_emb.shape)
         return embeddings, file_emb
 
@@ -61,7 +63,7 @@ class SemanticSearchModel:
         Fits the model with the data when a new PDF is uploaded.
         """
         self.chunks = chunks
-        self.embeddings, file_emb = self._get_text_embedding(
+        self.embeddings, _ = self._get_text_embedding(
             self.chunks, files, batch_size=batch_size
         )
         n_neighbors = min(n_neighbors, len(self.embeddings))
@@ -77,9 +79,8 @@ class SemanticSearchModel:
         embeddings_2d = tsne.fit_transform(self.embeddings)
 
         df = pd.DataFrame(embeddings_2d, columns=["x", "y"])
-
-        # df['color'] = 'blue'
         df["text"] = self.chunks
+        df["file"] = files
 
         chart = (
             alt.Chart(df)
@@ -88,17 +89,17 @@ class SemanticSearchModel:
                 x="x",
                 y="y",
                 tooltip=["text"],
-                # color=alt.value('blue')
+                color="file"
             )
-            .properties(title="Text Embeddings Visualization")
+            .properties(
+                title="Text Embeddings Visualization",
+                width=500,
+                height=350
+            )
         )
 
-        vega_lite_spec = chart.to_dict()
-        with open("fit_chart.json", "w") as f:
-            f.write(json.dumps(vega_lite_spec))
+        return chart
 
-        # chart.save('fit_chart.json')
-        print("[DEBUG] Fit visualization saved as 'fit_chart.json'")
 
     def __call__(self, text, return_data=True):
         """
@@ -113,3 +114,8 @@ class SemanticSearchModel:
             return [self.data[text_neighbs] for text_neighbs in neighbors]
         else:
             return neighbors
+
+
+def generate_colors(n):
+    colors = plt.cm.tab20.colors  # A color map with enough colors for a typical use case
+    return colors[:n] if n <= len(colors) else colors * (n // len(colors)) + colors[:n % len(colors)]

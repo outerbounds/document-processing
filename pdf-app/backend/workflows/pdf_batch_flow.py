@@ -10,13 +10,15 @@ from metaflow import (
     S3,
     environment,
     retry,
+    kubernetes
 )
-from metaflow.cards import Table
+from metaflow.cards import Table, VegaChart
 import os
 import json
 
+IMAGE = 'docker.io/eddieob/pdf-backend-workflow:latest'
 
-@pypi_base(python="3.12")
+# @pypi_base(python="3.12")
 class PDFRAGIndexing(FlowSpec):
 
     local_pdf_path = Parameter(
@@ -43,7 +45,8 @@ class PDFRAGIndexing(FlowSpec):
 
         self.s3_pdf_paths = []
         if self.url_list is not None:
-            for line in self.url_list.split("\\n"):
+            ls = self.url_list.split("\n")
+            for line in ls:
                 split = line.strip().split(": ")
                 name, url = split[0], split[1]
                 name = name.strip() + ".pdf"
@@ -72,7 +75,8 @@ class PDFRAGIndexing(FlowSpec):
         self.next(self.extract_text, foreach="s3_pdf_paths")
 
     @retry
-    @pypi(packages={"pymupdf": "1.24.6"})
+    # @pypi(packages={"pymupdf": "1.24.6"})
+    @kubernetes(image=IMAGE)
     @step
     def extract_text(self):
         from pdf_utils import pdf_to_text, text_to_chunks
@@ -88,16 +92,18 @@ class PDFRAGIndexing(FlowSpec):
         self.chunks = text_to_chunks(text_ls)
         self.next(self.join)
 
+    # @pypi(
+    #     packages={
+    #         "sentence-transformers": "3.0.1",
+    #         "scikit-learn": "1.5.0",
+    #         "altair": "5.3.0",
+    #         "pandas": "2.2.2",
+    #     }
+    # )
     @retry
-    @card
-    @pypi(
-        packages={
-            "sentence-transformers": "3.0.1",
-            "scikit-learn": "1.5.0",
-            "altair": "5.3.0",
-            "pandas": "2.2.2",
-        }
-    )
+    @card(type='blank', id='plot')
+    @card(type='blank', id='table')
+    @kubernetes(image=IMAGE)
     @environment(vars={"TOKENIZERS_PARALLELISM": "false"})
     @step
     def join(self, inputs):
@@ -105,21 +111,21 @@ class PDFRAGIndexing(FlowSpec):
         for i in inputs:
             for c in i.chunks:
                 self.chunks.append([c[0], c[1], i.file_name])
-        current.card.append(Table(headers=["Chunk", "Page", "File"], data=self.chunks))
+        current.card['table'].append(Table(headers=["Chunk", "Page", "File"], data=self.chunks))
         chunks = [c[0] for c in self.chunks]
         files = [c[2] for c in self.chunks]
-        self.model = self._fit(chunks, files)
+        self.model, altChart = self._fit(chunks, files)
 
-        with open("fit_chart.json", "r") as f:
-            self.chart_json = json.loads(f.read())
+        self.chart_json = json.dumps(altChart.to_dict())
+        current.card['plot'].append(VegaChart.from_altair_chart(altChart))
         self.next(self.end)
 
     def _fit(self, chunks, files):
         from semantic_search import SemanticSearchModel
 
         recommender = SemanticSearchModel()
-        recommender.fit(chunks, files)
-        return recommender
+        chart = recommender.fit(chunks, files)
+        return recommender.nn, chart
 
     @step
     def end(self):

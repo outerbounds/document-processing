@@ -1,4 +1,4 @@
-import Spinner from './single/Spinner.svelte';
+import Spinner from './Spinner.svelte';
 
 export const loader = (node, loading) => {
 	let Spin, loadingValue;

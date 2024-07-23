@@ -9,7 +9,7 @@ services:
     volumes:
       - type: bind
         source: $HOME/.metaflowconfig/config.json
-        target: $HOME/.metaflowconfig/config.json
+        target: /root/.metaflowconfig/config.json
     restart: always
     ports:
       - 8000:8000

@@ -12,4 +12,5 @@ RUN pip install \
     sentence-transformers==3.0.1 \ 
     outerbounds
 EXPOSE 8000
+ENV USERNAME=mf-user
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

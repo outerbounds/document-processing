@@ -155,7 +155,7 @@ async def upload_url_from_file_list(text_ls: str):
     filename = "pdfList.txt"
     with open(filename, "w") as f:
         f.write(text_ls)
-    with Runner("pdf_batch_flow.py", environment="pypi").run(
+    with Runner("workflows/pdf_batch_flow.py").run(
         url_list=filename
     ) as running:
         import time
@@ -169,9 +169,9 @@ async def upload_url_from_file_list(text_ls: str):
             global M_search
             flow = Flow(FLOW_NAME)
             run = flow.latest_successful_run
-            M_search = run.data.model
-            json_content = run.data.chart_json
-            return JSONResponse(content=json_content, status_code=200)
+            # M_search = run.data.model
+            # json_content = run.data.chart_json
+            return {"message": f"Metaflow run {FLOW_NAME}/{run.id} finished."}
         else:
             return {"message": "ERROR. Metaflow workflow failed."}
 
